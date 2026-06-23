@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>旅行比較サイト｜四国ルート</title>
+  <style>
+    :root{--bg:#f6f1e8;--ink:#24312f;--muted:#69736f;--card:#fffaf1;--accent:#2f6f63;}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Noto Sans JP",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);}
+    header{padding:22px clamp(20px,5vw,64px);display:flex;align-items:center;gap:16px;background:rgba(246,241,232,.85);position:sticky;top:0;backdrop-filter:blur(10px);}
+    .logo{font-weight:800;letter-spacing:.08em;text-decoration:none;color:var(--ink);}
+    main{min-height:calc(100vh - 130px);display:grid;place-items:center;padding:48px 20px;}
+    .card{width:min(780px,100%);background:var(--card);border-radius:28px;padding:clamp(28px,6vw,56px);box-shadow:0 20px 60px rgba(34,38,35,.12);text-align:center;border:1px solid rgba(36,49,47,.08);}
+    .kicker{font-size:.8rem;letter-spacing:.18em;font-weight:800;color:var(--accent);margin-bottom:14px;}
+    h1{font-size:clamp(2rem,7vw,4rem);margin:0 0 18px;}
+    p{line-height:1.9;color:var(--muted);margin:0 auto 30px;max-width:560px;}
+    .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:800;border:1px solid rgba(36,49,47,.12);}
+    .primary{background:var(--accent);color:white;}
+    .secondary{background:white;color:var(--ink);}
+    footer{text-align:center;color:var(--muted);font-size:.85rem;padding:28px;}
+  </style>
+
+<!-- Password gate style -->
+<style id="travel-password-style">
+.password-gate{
+  position:fixed;
+  inset:0;
+  z-index:999999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:#f7f1e5;
+  color:#1b2530;
+  font-family:"Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+}
+.password-gate.is-locked{display:flex;}
+.password-card{
+  width:min(380px,100%);
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(11,30,51,.12);
+  border-radius:22px;
+  padding:30px 26px 26px;
+  box-shadow:0 18px 48px rgba(6,19,31,.14);
+  text-align:center;
+}
+.password-card h2{
+  margin:0 0 10px;
+  color:#0b1e33;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:.06em;
+}
+.password-card .password-lead{
+  margin:0 0 22px;
+  color:#687382;
+  font-size:14px;
+  line-height:1.7;
+}
+.password-form{display:grid;gap:12px;text-align:left;}
+.password-form label{
+  color:#344154;
+  font-size:13px;
+  font-weight:700;
+}
+.password-form input{
+  width:100%;
+  border:1px solid rgba(11,30,51,.18);
+  border-radius:12px;
+  padding:13px 14px;
+  color:#1b2530;
+  background:#fff;
+  font-size:16px;
+  outline:none;
+}
+.password-form input:focus{
+  border-color:#0b1e33;
+  box-shadow:0 0 0 3px rgba(11,30,51,.10);
+}
+.password-form button{
+  border:0;
+  border-radius:12px;
+  padding:13px 16px;
+  color:#fff;
+  background:#0b1e33;
+  font-weight:800;
+  cursor:pointer;
+}
+.password-error{
+  min-height:1.5em;
+  margin:0;
+  color:#b23b3b;
+  font-size:13px;
+  text-align:center;
+  opacity:0;
+}
+.password-error.show{opacity:1;}
+@media(max-width:540px){.password-card{padding:28px 22px 24px;border-radius:18px}.password-card h2{font-size:22px}}
+</style>
+
+</head>
+<body>
+
+<div id="passwordGate" class="password-gate" role="dialog" aria-modal="true" aria-labelledby="passwordTitle">
+  <div class="password-card">
+    <h2 id="passwordTitle">旅行計画ページ</h2>
+    <p class="password-lead">パスワードを入力してください。</p>
+    <form id="passwordForm" class="password-form">
+      <label for="passwordInput">パスワード</label>
+      <input id="passwordInput" type="password" autocomplete="current-password" placeholder="パスワード" />
+      <button type="submit">開く</button>
+      <p id="passwordError" class="password-error">パスワードが違います。</p>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+  <header>
+    <a class="logo" href="index.html">TRAVEL COMPARISON</a>
+  </header>
+  <main>
+    <section class="card">
+      <div class="kicker">SHIKOKU ROUTE</div>
+      <h1>Coming Soon</h1>
+      <p>四国ルートは準備中です。9月中旬に更新予定。</p>
+      <div class="actions">
+        <a class="btn primary" href="index.html">TOPに戻る</a>
+        <a class="btn secondary" href="yamaguchi.html">山口ルートを見る</a>
+      </div>
+    </section>
+  </main>
+  <footer>Travel Comparison Site</footer>
+
+<!-- Password gate script -->
+<script id="travel-password-script">
+(() => {
+  const PASSWORD_HASH = "5d022fac97dded813d091cd2568262011cef329ad4f8608830623b5bd1d398fa";
+  const STORAGE_KEY = "travelSiteUnlockedRyoma1014";
+  const gate = document.getElementById("passwordGate");
+  const form = document.getElementById("passwordForm");
+  const input = document.getElementById("passwordInput");
+  const error = document.getElementById("passwordError");
+  if (!gate || !form || !input) return;
+
+  const getUnlocked = () => {
+    try { return localStorage.getItem(STORAGE_KEY) === "true"; }
+    catch (e) { return sessionStorage.getItem(STORAGE_KEY) === "true"; }
+  };
+  const setUnlocked = () => {
+    try { localStorage.setItem(STORAGE_KEY, "true"); }
+    catch (e) { sessionStorage.setItem(STORAGE_KEY, "true"); }
+  };
+  const removeGate = () => gate.remove();
+
+  const toHex = buffer => Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2,"0")).join("");
+  const sha256 = async text => {
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return toHex(digest);
+  };
+
+  if (getUnlocked()) {
+    removeGate();
+    return;
+  }
+
+  gate.classList.add("is-locked");
+  setTimeout(() => input.focus(), 150);
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    error.classList.remove("show");
+    try {
+      const hash = await sha256(input.value.trim());
+      if (hash === PASSWORD_HASH) {
+        setUnlocked();
+        removeGate();
+      } else {
+        input.value = "";
+        error.classList.add("show");
+        input.focus();
+      }
+    } catch (e) {
+      error.textContent = "このブラウザでは確認できません。別のブラウザで開いてください。";
+      error.classList.add("show");
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
